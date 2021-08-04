@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Api App</title>
+</head>
+
+<body>
+  <button>°C / °F</button>
+  <input>
+
+</body>
+<script>
+  let unit = 'metric';
+  let city = 'orlando';
+  async function apiRequest(unit, city) {
+    const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=a89d5841a86362e35ca8139134265593&units=${unit}`);
+    const data = await response.json();
+    console.log(processData(data));
+  }
+  function processData(obj) {
+    //Units will be determined by units toggle on page
+    const editedObj = {
+      city_name: obj.name,
+      temp: obj.main.temp,
+      temp_min: obj.main.temp_max,
+      temp_max: obj.main.temp_min,
+      feels_like: obj.main.feels_like,
+      hum: obj.main.humidity,
+      pressure: obj.main.pressure,
+      wind: obj.wind,
+      weather: obj.weather,
+    }
+    return editedObj;
+  }
+  apiRequest(unit, city);
+</script>
+
+</html>
