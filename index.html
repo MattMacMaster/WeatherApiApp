@@ -5,38 +5,141 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
   <title>Weather Api App</title>
 </head>
 
 <body>
-  <button>°C / °F</button>
-  <input>
+  <div class="page">
+    <div class="search">
+      <button class="unitBox" id="units">°<b>C</b> / °F</button>
+      <input id='search' class="searchBox" placeholder="Search City">
+      <p id="errMsg" class="msg">Could not find City!</p>
+    </div>
+    <div class="contentVals">
+      <div id="cityName">City Name</div>
+      <div id="baseTemp">Temp</div>
+      <div id="desc">Desc</div>
+      <div id="sidebar">
+        <div id="feels">
+          feels
+        </div>
+        <div id="min">
+          min
+        </div>
+        <div id="max">
+          max
+        </div>
+      </div>
+      <div id="windVals">
+        <div id="degree">
+          degree
+        </div>
+        <div id="gust">
+          gust
+        </div>
+        <div id="speed">
+          speed
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
+
+
 <script>
-  let unit = 'metric';
-  let city = 'orlando';
+  //defaults - metric and Calgary
+  let metric = true;
+  let city = 'calgary';
+
+  const input = document.getElementById('search');
+  const btn = document.getElementById('units');
+  const errMsg = document.getElementById('errMsg');
+
+  btn.addEventListener('click', toggleUnits);
+  input.addEventListener("keyup", search);
+
+  function search(e) {
+    //13 doesnt work for a keycode?
+    if (e.code === 'Enter') {
+      city = this.value;
+      apiRequest(metric, this.value);
+    }
+  }
   async function apiRequest(unit, city) {
-    const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=a89d5841a86362e35ca8139134265593&units=${unit}`);
+    const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=a89d5841a86362e35ca8139134265593&units=${metric ? 'metric' : 'imperial'}`);
     const data = await response.json();
-    console.log(processData(data));
+    if (data.cod === 200) {
+      const formattedData = processData(data);
+      formContent(formattedData);
+      toggleErrMsg(false);
+    } else {
+      toggleErrMsg(true);
+    }
+
   }
   function processData(obj) {
     //Units will be determined by units toggle on page
     const editedObj = {
-      city_name: obj.name,
-      temp: obj.main.temp,
-      temp_min: obj.main.temp_max,
-      temp_max: obj.main.temp_min,
-      feels_like: obj.main.feels_like,
-      hum: obj.main.humidity,
-      pressure: obj.main.pressure,
-      wind: obj.wind,
+      city_name: obj.name + ', ' + obj.sys.country,
+      temp: `${obj.main.temp}${metric ? '°C' : '°F'}`,
+      temp_min: `${obj.main.temp_min}${metric ? '°C' : '°F'}`,
+      temp_max: `${obj.main.temp_max}${metric ? '°C' : '°F'}`,
+      feels_like: `${obj.main.feels_like}${metric ? '°C' : '°F'}`,
+      hum: obj.main.humidity + '%',
+      pressure: obj.main.pressure + ' hPa',
+      wind: {
+        deg: obj.wind.deg + '°',
+        gust: `${obj.wind.gust ? obj.wind.gust : 0} ${metric ? 'meter/sec' : 'miles/hour'}`,
+        speed: `${obj.wind.speed ? obj.wind.speed : 0} ${metric ? 'meter/sec' : 'miles/hour'}`,
+      },
       weather: obj.weather,
     }
     return editedObj;
   }
-  apiRequest(unit, city);
+
+  function toggleUnits() {
+    metric = !metric;
+    if (metric) {
+      btn.innerHTML = `°<b>C</b> / °F`;
+
+    } else {
+      btn.innerHTML = `°C / °<b>F</b>`;
+    }
+    apiRequest(metric, city);
+  }
+
+  function formContent(obj) {
+    const cityName = document.getElementById('cityName');
+    const baseTemp = document.getElementById('baseTemp');
+    const desc = document.getElementById('desc');
+    const feels = document.getElementById('feels');
+    const min = document.getElementById('min');
+    const max = document.getElementById('max');
+    const deg = document.getElementById('degree');
+    const gust = document.getElementById('gust');
+    const speed = document.getElementById('speed');
+
+    cityName.innerText = obj.city_name;
+    baseTemp.innerText = obj.temp;
+    desc.innerText = obj.weather[0].description;
+    feels.innerText = obj.feels_like;
+    min.innerText = obj.temp_min;
+    max.innerText = obj.temp_max;
+    deg.innerText = obj.wind.deg;
+    gust.innerText = obj.wind.gust;
+    speed.innerText = obj.wind.speed;
+  }
+
+  function toggleErrMsg(state) {
+    if (!state) {
+      errMsg.classList.remove('err');
+    } else {
+      errMsg.classList.add('err');
+    }
+  }
+  apiRequest(metric, city);
 </script>
 
 </html>

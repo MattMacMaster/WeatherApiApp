@@ -1,0 +1,21 @@
+html {
+  background-image: url('background-img.jpg');
+}
+.search {
+  float: right;
+  margin-right: 20px;
+}
+.contentVals {
+  color: aliceblue;
+  position: relative;
+  width: 50%;
+}
+.msg {
+  opacity: 0%;
+}
+.err {
+  color: red;
+  margin-top: 0px;
+  margin-left: 75px;
+  opacity: 100%;
+}
