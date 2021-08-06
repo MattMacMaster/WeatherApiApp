@@ -12,7 +12,6 @@ label {
 }
 .contentVals {
   color: aliceblue;
-  position: relative;
   width: 50%;
   margin-left: 25%;
 }
@@ -22,7 +21,7 @@ label {
 .err {
   color: red;
   margin-top: 0px;
-  margin-left: 75px;
+  margin-left: 260px;
   opacity: 100%;
 }
 .cityName {
@@ -53,4 +52,38 @@ label {
 }
 .sideBar {
   margin-top: 35px;
+}
+/* Content styling Above ^ */
+/* Button Styling Below */
+.unitBox {
+  width: 200px;
+  border: none;
+  color: white;
+  padding: 8px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+.unitBox {
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+}
+
+.unitBox:hover {background-color: #e7e7e7;}
+/* Search Styling Below */
+.searchBox {
+  width: 200px;
+  border: none;
+  padding: 8px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
