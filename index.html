@@ -6,6 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital@1&display=swap" rel="stylesheet">
   <title>Weather Api App</title>
 </head>
 
@@ -17,28 +20,36 @@
       <p id="errMsg" class="msg">Could not find City!</p>
     </div>
     <div class="contentVals">
-      <div id="cityName">City Name</div>
-      <div id="baseTemp">Temp</div>
-      <div id="desc">Desc</div>
-      <div id="sidebar">
-        <div id="feels">
+      <div class="cityName" id="cityName">City Name</div>
+      <div class="baseTemp" id="baseTemp">Temp</div>
+      <div class="desc" id="desc">Desc</div>
+
+      <div class="sideBar" id="sidebar">
+        <label>Feels Like:</label>
+        <div class="sideBlock" id="feels">
           feels
         </div>
-        <div id="min">
+        <label>Min Temp:</label>
+        <div class="sideBlock" id="min">
           min
         </div>
-        <div id="max">
+        <label>Max Temp:</label>
+        <div class="sideBlock" id="max">
           max
         </div>
+
       </div>
-      <div id="windVals">
-        <div id="degree">
+      <div class="sideBar" id="windVals">
+        <label>Degree:</label>
+        <div class="sideBlock" id="degree">
           degree
         </div>
-        <div id="gust">
+        <label>Gusts:</label>
+        <div class="sideBlock" id="gust">
           gust
         </div>
-        <div id="speed">
+        <label>Speed:</label>
+        <div class="sideBlock" id="speed">
           speed
         </div>
       </div>

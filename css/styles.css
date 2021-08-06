@@ -1,5 +1,10 @@
 html {
   background-image: url('background-img.jpg');
+  font-family: 'Merriweather Sans', sans-serif;
+}
+label {
+  font-size: small;
+  margin-right: 105px;
 }
 .search {
   float: right;
@@ -9,6 +14,7 @@ html {
   color: aliceblue;
   position: relative;
   width: 50%;
+  margin-left: 25%;
 }
 .msg {
   opacity: 0%;
@@ -18,4 +24,33 @@ html {
   margin-top: 0px;
   margin-left: 75px;
   opacity: 100%;
+}
+.cityName {
+  font-size: 4rem;
+}
+.unitbox {
+  width: 400px;
+}
+.baseTemp {
+  font-size: 3rem;
+  display: inline
+}
+.desc {
+  display: inline;
+  margin-left: 15px;
+  font-size: 2rem;
+}
+.sideBlock {
+  display: inline;
+  position:absolute;
+  margin-top: 20px;
+  margin-left: -135px;
+  font-size: 1.2rem;
+}
+
+.windBar {
+  margin-top: 45px;
+}
+.sideBar {
+  margin-top: 35px;
 }
